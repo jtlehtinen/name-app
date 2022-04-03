@@ -7,26 +7,22 @@ import (
 	"os"
 )
 
-type config struct {
-	port int
-}
+func routes() http.Handler {
+	router := http.NewServeMux()
 
-type application struct {
-	config config
+	fs := http.FileServer(http.Dir("./static"))
+	router.Handle("/", fs)
+
+	return router
 }
 
 func run() error {
-	var cfg config
-	flag.IntVar(&cfg.port, "port", 5000, "API server port")
+	port := flag.Int("port", 5000, "API server port")
 	flag.Parse()
 
-	app := &application{
-		config: cfg,
-	}
-
 	srv := &http.Server{
-		Addr:    fmt.Sprintf(":%d", cfg.port),
-		Handler: app.routes(),
+		Addr:    fmt.Sprintf(":%d", *port),
+		Handler: routes(),
 	}
 
 	return srv.ListenAndServe()
