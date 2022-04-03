@@ -40,11 +40,6 @@ function createTable(names, root, compareFunc) {
     return element;
   }
 
-  const table = document.createElement("table");
-  root.appendChild(table).id = "table";
-
-  const thead = document.createElement("thead");
-  const headRow = document.createElement("tr");
 
   const theadName = createElement("th", "Name");
   theadName.onclick = () => {
@@ -52,9 +47,9 @@ function createTable(names, root, compareFunc) {
     destroyTable();
     createTable(names, document.getElementById("root"), compareFunc);
   };
-  headRow.appendChild(theadName);
   if (compareFunc === compareNameDesc) theadName.classList.add("sort-desc");
   if (compareFunc === compareNameAsc) theadName.classList.add("sort-asc");
+
 
   const theadAmount = createElement("th", "Amount");
   theadAmount.onclick = () => {
@@ -62,12 +57,18 @@ function createTable(names, root, compareFunc) {
     destroyTable();
     createTable(names, document.getElementById("root"), compareFunc);
   };
-  headRow.appendChild(theadAmount);
   if (compareFunc === compareAmountDesc) theadAmount.classList.add("sort-desc");
   if (compareFunc === compareAmountAsc) theadAmount.classList.add("sort-asc");
 
+
+  const headRow = document.createElement("tr");
+  headRow.appendChild(theadName);
+  headRow.appendChild(theadAmount);
+
+
+  const thead = document.createElement("thead");
   thead.appendChild(headRow);
-  table.appendChild(thead);
+
 
   const tbody = document.createElement("tbody");
 
@@ -80,12 +81,17 @@ function createTable(names, root, compareFunc) {
     total += nameAndAmount.amount;
   });
 
+
   const totalRow = document.createElement("tr");
   totalRow.appendChild(createElement("td", "Total"));
   totalRow.appendChild(createElement("td", total));
   tbody.appendChild(totalRow);
 
+
+  const table = document.createElement("table");
+  table.appendChild(thead);
   table.appendChild(tbody);
+  root.appendChild(table).id = "table";
 }
 
 function onNamesLoaded(data) {
