@@ -3,6 +3,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"log"
 	"net/http"
 	"os"
 )
@@ -21,10 +22,11 @@ func run() error {
 	flag.Parse()
 
 	srv := &http.Server{
-		Addr:    fmt.Sprintf(":%d", *port),
+		Addr:    fmt.Sprintf("localhost:%d", *port),
 		Handler: routes(),
 	}
 
+	log.Printf("Starting server on %s\n", srv.Addr)
 	return srv.ListenAndServe()
 }
 
