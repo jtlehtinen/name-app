@@ -18,7 +18,7 @@ func routes() http.Handler {
 }
 
 func run() error {
-	port := flag.Int("port", 5000, "API server port")
+	port := flag.Int("port", 3000, "API server port")
 	flag.Parse()
 
 	srv := &http.Server{

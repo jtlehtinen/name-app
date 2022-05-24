@@ -7,10 +7,27 @@ table {
   width: 100%;
 }
 
+tbody > tr:last-child {
+  border-top: 2px solid black;
+}
+
 td, th {
   border: 1px solid #ddd;
   padding: 8px;
   width: 50%;
+}
+
+th {
+  background-color: #04AA6D;
+  color: white;
+  padding-bottom: 12px;
+  padding-top: 12px;
+  text-align: left;
+  user-select: none;
+}
+
+th:hover {
+  cursor: pointer;
 }
 
 tr:nth-child(even) {
@@ -21,39 +38,18 @@ tr:hover {
   background-color: #ddd;
 }
 
-th {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  text-align: left;
-  background-color: #04AA6D;
-  color: white;
-  user-select: none;
-}
-
-th:hover {
-  cursor: pointer;
+.sort-asc::after, .sort-desc::after {
+  font-size: 0.7em;
+  line-height: 0.7em;
+  padding-left: 0.5em;
+  position:relative;
+  top:-0.2em;
 }
 
 .sort-asc::after {
   content:  "▲";
-  font-size: 0.7em;
-  padding-left: 0.5em;
-  line-height: 0.7em;
-
-  position:relative;
-  top:-0.2em;
 }
 
 .sort-desc::after {
   content: "▼";
-  font-size: 0.7em;
-  padding-left: 0.5em;
-  line-height: 0.7em;
-
-  position:relative;
-  top:-0.2em;
-}
-
-tbody > tr:last-child {
-  border-top: 2px solid black;
 }
